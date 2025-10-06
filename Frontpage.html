@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutiques Only</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5a2b;
+            --secondary: #d4af37;
+            --text: #333;
+            --bg: #f9f5f0;
+            --card: #fff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .dark-mode {
+            --primary: #c19a6b;
+            --secondary: #e6c97c;
+            --text: #f0e6d6;
+            --bg: #1a1a1a;
+            --card: #2d2d2d;
+            --shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--card);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+
+        /* Slider */
+        .slider {
+            margin-top: 80px;
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Slider Navigation */
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--secondary);
+        }
+
+        /* Artisan Legacy Section */
+        .artisan-section {
+            background: linear-gradient(135deg, #f9f5f0 0%, #e8dfd3 100%);
+            padding: 100px 20px;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .artisan-section {
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+        }
+
+        .artisan-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .artisan-content {
+            z-index: 2;
+        }
+
+        .artisan-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .artisan-title {
+            font-size: 48px;
+            font-weight: normal;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .artisan-subtitle {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 300;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .artisan-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary);
+            padding: 15px 40px;
+            border: 2px solid var(--primary);
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 90, 43, 0.3);
+        }
+
+        .curve{
+            
+            border-radius: 30px;;
+        }
+
+
+
+
+        
+        .collections-section {
+            background: #f9f5f0;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+         .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: #8b5a2b;
+            color: white;
+            padding: 8px 20px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 42px;
+            color: #2c2c2c;
+            font-weight: normal;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .collection-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .collection-image {
+            height: 250px;
+            background: linear-gradient(45deg, #d4af37, #8b5a2b);
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .collection-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .collection-name {
+            font-size: 24px;
+            color: #2c2c2c;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+  .discover-btn {
+            display: inline-block;
+            background: transparent;
+            color: #8b5a2b;
+            padding: 12px 30px;
+            border: 2px solid #8b5a2b;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .discover-btn:hover {
+            background: #8b5a2b;
+            color: white;
+        }
+
+
+
+/* gaurdian */
+.heritage-section {
+            background: linear-gradient(135deg, #f9f5f0 0%, #e8dfd3 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .heritage-badge {
+            display: inline-block;
+            color: var(--primary);
+            padding: 8px 20px;
+            font-size: 24px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+text-transform: uppercase;
+        }
+
+        .heritage-title {
+            font-size: 42px;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+        }
+
+        .heritage-subtitle {
+            font-size: 30px;
+            color: #000000;
+            margin-bottom: 20px;
+            font-style: italic;
+            font-weight: 200;
+        }
+
+        .artisans {
+            display: flex;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .artisan {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .artisan h2 {
+            color: #8b5a2b;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .specialty {
+            color: #d4af37;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .tag {
+            background: #8b5a2b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+font-size: 12px;
+            display: inline-block;
+        }
+
+        .crafts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .craft {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+
+
+/* our trending */
+.section2{
+            background-color: linear-gradient(135deg, #f9f5f0 0%, #e8dfd3 100%);
+            width:100vw;
+            min-height:30vh;
+        }
+
+.s2head{
+    color: white;
+            margin-left: 10px;
+            margin-bottom: 15px;
+}
+.trending{
+            display:flex;
+            overflow: scroll;
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 60px;
+            padding-right: 60px;
+            margin-bottom: 30px;
+            margin-left: 50px;
+            margin-right: 90px;
+
+}
+.trending::-webkit-scrollbar {
+    display: none;
+}
+.box{
+            position:relative;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            cursor:pointer;
+            transition:0.5s all ease;
+        }
+        .box:hover{
+            scale:1.04;
+        }
+
+        .rad{
+            border-radius: 12px;
+            margin-left: 40px;
+            width: 200px;
+            height: 250px;
+        }
+.our{
+    font-style: italic;
+    margin-left: 50px;
+    margin-top: 30px;
+    color: var(--primary);
+}
+
+/* Footer */
+footer {
+    background: var(--card);
+    padding: 60px 0 30px;
+}
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column a {
+            text-decoration: none;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .artisan-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .artisan-title {
+                font-size: 36px;
+            }
+
+
+            .artisan-visual {
+                height: 400px;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .slider {
+                height: 300px;
+                margin-top: 140px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .artisan-section {
+                padding: 60px 20px;
+            }
+
+            .artisan-title {
+                font-size: 28px;
+            }
+
+            .artisan-subtitle {
+                font-size: 20px;
+            }
+
+            .artisan-description {
+                font-size: 16px;
+            }
+
+            .artisan-visual {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-sleigh"></i>
+                Boutiques Only
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Sarees</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Slider -->
+    <section class="slider">
+        <div class="slides">
+            <div class="slide">
+<img src="image.png" alt="">            </div>
+            <div class="slide">
+<img src="tussar_silk_sarees_guide_151ad81b-ad45-4cf5-ba29-6da9262d7fc4.webp" alt="">            </div>
+            <div class="slide">
+<img src="photo-1618901185975-d59f7091bcfe.jpeg" alt="">            </div>
+            <div class="slide">
+<img src="360_F_167253732_FVaF7PyA5vat3JVPvP4F5AsCoZkYAnZF.jpg">            </div>
+        </div>
+        <div class="slider-nav">
+            <button class="slider-dot active"></button>
+            <button class="slider-dot"></button>
+            <button class="slider-dot"></button>
+            <button class="slider-dot"></button>
+        </div>
+    </section>
+
+    <!-- Artisan Legacy Section -->
+    <section class="artisan-section">
+        
+        <div class="container artisan-container">
+            <div class="artisan-content">
+                <div class="artisan-badge">Artisan Legacy</div>
+                <h1 class="artisan-title">The Craft of Elegance</h1>
+                <h2 class="artisan-subtitle">Where Tradition Meets Modern Grace</h2>
+                <p class="artisan-description">
+                    Each weave carries centuries of tradition, blending heritage with contemporary grace. 
+                    Our sarees are heirloom pieces designed to transcend time.
+                </p>
+                <a href="#" class="explore-btn curve">Explore Collection</a>
+            </div>
+            
+           
+                    <div><img src="image copy.png" class="curve" alt=""></div>
+                </div>
+
+        </div>
+    </section>
+
+ <section class="collections-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Weaver's Heritage Collections</div>
+                <h1 class="section-title">Traditional Elegance</h1>
+            </div>
+            
+            <div class="collections-grid">
+                <!-- Semi-Pattu Collection -->
+                <div class="collection-card ">
+                    <div class="collection-image"><img src="banaras.jpg" alt=""></div>
+                    <div class="collection-content">
+                        <h2 class="collection-name">Semi-Pattu</h2>
+                        <a href="#" class="discover-btn">Discover</a>
+                    </div>
+                </div>
+
+                <!-- Festive Collection -->
+                <div class="collection-card ">
+                    <div class="collection-image"><img src="gadwal.webp" alt=""></div>
+                    <div class="collection-content">
+                        <h2 class="collection-name">Festive</h2>
+                        <a href="#" class="discover-btn">Discover</a>
+                    </div>
+                </div>
+
+                <!-- Fancy Sarees Collection -->
+                <div class="collection-card ">
+                    <div class="collection-image"><img src="cotton.webp" alt=""></div>
+                    <div class="collection-content">
+                        <h2 class="collection-name">Fancy Sarees</h2>
+                        <a href="#" class="discover-btn">Discover</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Guardians -->
+       <section class="heritage-section">
+        <h3 class="heritage-subtitle">Master Weavers</h3>
+            <div class="heritage-badge">Guardian of Heritage</div>
+            
+            <div class="artisan">
+        <div class="artisan">
+            <h2>Ramesh Kumar</h2>
+            <div class="specialty">Fourth-generation master weaver from Varanasi</div>
+            <p class="description">Specializing in intricate brocade patterns that take months to complete.</p>
+            <span class="tag">BANARASI SILK</span>
+        </div>
+
+        <!-- Meena Iyer -->
+        <div class="artisan">
+            <h2>Meena Iyer</h2>
+            <div class="specialty">Preserves ancient techniques while innovating</div>
+            <p class="description">Specializing in Kanjeevaram silk with contemporary color palettes.</p>
+            <span class="tag">KANJEEVARAM SILK</span>
+        </div>
+ <!-- Anita Singh -->
+        <div class="artisan">
+            <h2>Anita Singh</h2>
+            <div class="specialty">Royal Court-trained artisan</div>
+            <p class="description">Specializing in zardozi embroidery using pure gold threads.</p>
+            <span class="tag">ZARI EMBROIDERY</span>
+        </div>
+    </div>
+
+    <div class="crafts">
+        <div class="craft">BANARASI SILK</div>
+        <div class="craft">KANJEEVARAM SILK</div>
+        <div class="craft">ZARI EMBROIDERY</div>
+    </div>
+        
+       </div>
+    
+            </div>
+
+    </div>
+
+</section>
+
+
+<!-- our trending -->
+<div class="section2">
+
+   <div class="our"><h1>Our Trending Collection</h1> </div> 
+    <div class="s2head">
+        
+ <div class="trending px-5 p-4 ">
+    <div class="box ">
+        <img src="1.jpg" width="180px"class="rad"   alt="">
+    </div>
+    <div class=" box ">
+        <img src="2.jpg" width="180px" class="rad"  alt="">
+    </div>
+    <div class=" box ">
+        <img src=   "3.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class="  box ">
+        <img src=   "4.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class=" box ">
+        <img src=   "6.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class="box ">
+        <img src=   "5.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class="box ">
+        <img src=   "7.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class="box ">
+        <img src="8.jpg"  width="180px" class="rad" alt="">
+    </div>
+    <div class="box ">
+        <img src=   "9.jpg" width="180px" class="rad" alt="">
+    </div>
+    <div class=" box ">
+        <img src="10.jpg" width="180px" class="rad" alt="">
+    </div>
+</div>
+
+    </div>
+
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Exquisite Design</h3>
+                    <p>Where India's finest boutiques commission their digital presence</p>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return & Exchange</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Hyderabad</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> boutiquesonly@damerax.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>2025 Boutiques Only. All rights reserved. Designed & Crafted by Damerax App Studio.</p>
+            </div>
+        </div>
+    </footer>
+ 
+    <!-- script -->
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Image Slider
+        let currentSlide = 0;
+        const slides = document.querySelector('.slides');
+        const dots = document.querySelectorAll('.slider-dot');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        // Auto slide every 2 seconds
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 2000);
+
+        // Dot navigation
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showSlide(i);
+            });
+        });
+    </script>
+</body>
+</html>
